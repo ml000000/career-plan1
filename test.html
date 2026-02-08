@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>马磊 | 数字化供应链运营专家 - 2026职业看板</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 引入 Markdown 解析器 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- 引入 FontAwesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'tech-blue': '#2563eb',
+                        'tech-dark': '#0f172a',
+                        'card-bg': '#ffffff',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f1f5f9; }
+        .blur-content { filter: blur(12px); pointer-events: none; user-select: none; transition: all 0.5s ease; }
+        
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* 代码块样式 */
+        .code-preview {
+            background: #1e293b;
+            color: #e2e8f0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .token.keyword { color: #c678dd; }
+        .token.string { color: #98c379; }
+        .token.function { color: #61afef; }
+        .token.number { color: #d19a66; }
+        .token.comment { color: #5c6370; font-style: italic; }
+    </style>
+</head>
+<body class="text-slate-800 font-sans antialiased overflow-hidden h-screen flex flex-col">
+
+    <!-- ==================== 登录遮罩层 ==================== -->
+    <div id="login-overlay" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-900/95 backdrop-blur-sm transition-opacity duration-500">
+        <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full mx-4 border-t-4 border-blue-500 text-center">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-shield-alt text-2xl text-blue-600"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">职业数据看板 (2026)</h2>
+            <p class="text-slate-500 text-sm mb-6">本页面包含马磊的详细履历及数据分析成果。<br>请输入访问密码以解锁。</p>
+            
+            <div class="relative mb-4">
+                <i class="fas fa-lock absolute left-3 top-3.5 text-slate-400"></i>
+                <input type="password" id="password-input" 
+                       class="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" 
+                       placeholder="请输入密码 (提示: 2026)">
+            </div>
+            
+            <button onclick="checkPassword()" 
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition duration-200 shadow-lg hover:shadow-blue-500/30 flex items-center justify-center gap-2">
+                <span>解锁访问</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+            <p id="error-msg" class="text-red-500 text-xs mt-3 h-4 opacity-0 transition-opacity">密码错误，请重试。</p>
+            <p class="text-slate-400 text-xs mt-6">技术栈: HTML5 · Tailwind · Chart.js · Gemini AI</p>
+        </div>
+    </div>
+
+    <!-- ==================== 主内容区域 ==================== -->
+    <div id="main-scroll" class="flex-1 overflow-y-auto w-full blur-content bg-slate-50">
+        
+        <!-- 顶部导航 -->
+        <header class="bg-white shadow-sm sticky top-0 z-40 border-b border-slate-200">
+            <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-md">
+                        M
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-slate-800 leading-tight">马磊 Ma Lei</h1>
+                        <p class="text-xs text-slate-500">数字化供应链 / WMS数据专员</p>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <a href="#" class="hidden md:flex items-center gap-2 px-4 py-2 text-sm text-slate-600 hover:text-blue-600 transition">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="#" class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition shadow-md shadow-blue-500/20">
+                        <i class="fas fa-file-download"></i> 下载简历 PDF
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-6xl mx-auto px-4 py-8 space-y-8">
+
+            <!-- 1. 核心指标卡片 (KPI Dashboard) -->
+            <section class="grid grid-cols-1 md:grid-cols-4 gap-4 animate-[fadeInUp_0.6s_ease-out]">
+                <!-- Card 1 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition group">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="text-slate-500 text-xs font-medium uppercase">库存差异率</div>
+                        <i class="fas fa-chart-line text-green-500 bg-green-50 p-1.5 rounded-md"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-slate-800 group-hover:text-blue-600 transition">&lt; 0.1%</div>
+                    <p class="text-xs text-slate-400 mt-1">在中石油实习期间达成</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition group">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="text-slate-500 text-xs font-medium uppercase">Python 自动化</div>
+                        <i class="fas fa-code text-blue-500 bg-blue-50 p-1.5 rounded-md"></i>
+                    </div>
+                    <div class="text-3xl font-bold text-slate-800">Level 2</div>
+                    <p class="text-xs text-slate-400 mt-1">能编写 Pandas 清洗脚本</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition group">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="text-slate-500 text-xs font-medium uppercase">系统熟练度</div>
+                        <i class="fas fa-server text-indigo-500 bg-indigo-50 p-1.5 rounded-md"></i>
+                    </div>
+                    <div class="text-2xl font-bold text-slate-800 mt-1">WMS / ERP</div>
+                    <p class="text-xs text-slate-400 mt-1">Dynamics BC & PDA操作</p>
+                </div>
+                 <!-- Card 4 -->
+                 <div class="bg-white p-5 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition group">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="text-slate-500 text-xs font-medium uppercase">求职意向</div>
+                        <i class="fas fa-briefcase text-purple-500 bg-purple-50 p-1.5 rounded-md"></i>
+                    </div>
+                    <div class="text-xl font-bold text-slate-800 mt-2">数据分析/运营</div>
+                    <p class="text-xs text-slate-400 mt-1">坐标：苏州 (随时到岗)</p>
+                </div>
+            </section>
+
+            <!-- 2. 主体内容：左侧技能+AI，右侧经历+项目 -->
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <!-- 左侧栏 (30%) -->
+                <div class="md:col-span-1 space-y-6">
+                    
+                    <!-- 复合能力模型 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm animate-[fadeInUp_0.8s_ease-out_0.2s_both]">
+                        <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-radar text-blue-500"></i> 复合能力模型
+                        </h3>
+                        <div class="relative h-64 w-full">
+                            <canvas id="skillChart"></canvas>
+                        </div>
+                        <div class="mt-4 space-y-2">
+                            <div class="flex justify-between text-xs">
+                                <span class="text-slate-500">传统仓储运营</span>
+                                <span class="font-bold text-slate-700">85%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 rounded-full h-1.5">
+                                <div class="bg-slate-400 h-1.5 rounded-full" style="width: 85%"></div>
+                            </div>
+                            
+                            <div class="flex justify-between text-xs mt-2">
+                                <span class="text-slate-500">数字化/编程 (Python)</span>
+                                <span class="font-bold text-blue-600">50% (快速成长期)</span>
+                            </div>
+                            <div class="w-full bg-slate-100 rounded-full h-1.5">
+                                <div class="bg-blue-600 h-1.5 rounded-full relative overflow-hidden" style="width: 50%">
+                                    <div class="absolute inset-0 bg-white/30 animate-[shimmer_2s_infinite]"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI 智能面试官 (增强版) -->
+                    <div class="bg-gradient-to-b from-indigo-50 to-white p-6 rounded-2xl border border-indigo-100 shadow-sm animate-[fadeInUp_0.8s_ease-out_0.4s_both]">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-indigo-900 flex items-center gap-2">
+                                <i class="fas fa-robot text-indigo-500"></i> AI 简历助手
+                            </h3>
+                            <span class="bg-indigo-200 text-indigo-700 text-[10px] px-2 py-0.5 rounded-full">Gemini 2.0</span>
+                        </div>
+                        <p class="text-xs text-slate-600 mb-4">您可以直接询问 AI 关于我的胜任力，或选择以下预设问题：</p>
+                        
+                        <select id="ai-question" class="w-full p-2.5 text-sm border border-indigo-200 rounded-lg bg-white mb-3 focus:ring-2 focus:ring-indigo-400 outline-none">
+                            <option value="intro">请用100字生成一段马磊的自我介绍</option>
+                            <option value="data_value">马磊的数据分析技能如何为仓库降本增效？</option>
+                            <option value="python_use">举例说明马磊如何使用 Python 解决工作问题？</option>
+                            <option value="why_hire">作为HR，为什么要聘用马磊做WMS专员？</option>
+                        </select>
+
+                        <div id="ai-response-box" class="bg-white rounded-lg p-3 text-sm text-slate-700 h-40 overflow-y-auto mb-3 border border-indigo-100 shadow-inner custom-scroll">
+                            <p class="text-slate-400 italic text-center mt-12">等待指令...</p>
+                        </div>
+
+                        <button id="ai-btn" onclick="callAI()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-lg font-medium shadow-md transition-all flex items-center justify-center gap-2 text-sm">
+                            <span>✨</span> 向 AI 提问
+                        </button>
+                    </div>
+
+                    <!-- 联系方式 -->
+                    <div class="bg-slate-800 text-white p-6 rounded-2xl shadow-lg animate-[fadeInUp_0.8s_ease-out_0.6s_both]">
+                        <h3 class="font-bold mb-4">联系方式</h3>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-center gap-3">
+                                <i class="fas fa-phone-alt text-blue-400 w-5"></i> 180-1555-3826
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fas fa-envelope text-blue-400 w-5"></i> kcjm203826@tutamail.com
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i class="fas fa-map-marker-alt text-blue-400 w-5"></i> 江苏 · 苏州
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 右侧栏 (70%) -->
+                <div class="md:col-span-2 space-y-8">
+                    
+                    <!-- 3. 项目展示：代码 + 案例 -->
+                    <section class="animate-[fadeInUp_0.8s_ease-out_0.3s_both]">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2 border-l-4 border-blue-500 pl-3">
+                            项目与技能实证
+                        </h3>
+                        
+                        <div class="space-y-6">
+                            <!-- 项目 A：自动化脚本 -->
+                            <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                                <div class="bg-slate-50 px-4 py-3 border-b border-slate-200 flex justify-between items-center">
+                                    <h4 class="font-bold text-slate-700 text-sm">
+                                        <i class="fab fa-python text-blue-500 mr-1"></i> 库存报表自动比对脚本 (Demo)
+                                    </h4>
+                                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">Python / Pandas</span>
+                                </div>
+                                <div class="p-4 grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <p class="text-sm text-slate-600 mb-2">
+                                            <span class="font-bold">痛点：</span> 每日需人工核对 ERP 系统导出数据与实物盘点表，耗时约 45 分钟且易出错。<br>
+                                            <span class="font-bold">解决方案：</span> 编写 Python 脚本，利用 Pandas 库自动读取两个 Excel 源文件，基于 SKU 进行 Merge 操作，自动输出差异项。<br>
+                                            <span class="font-bold">成果：</span> 耗时缩短至 <span class="text-green-600 font-bold">3秒</span>，准确率 100%。
+                                        </p>
+                                    </div>
+                                    <div class="code-preview text-xs">
+                                        <div class="flex gap-1.5 mb-2 border-b border-slate-700 pb-2">
+                                            <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+                                            <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
+                                            <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
+                                        </div>
+<pre><code><span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+
+<span class="token comment"># 1. 读取 ERP 系统数据与实盘数据</span>
+df_erp = pd.read_excel(<span class="token string">'erp_export.xlsx'</span>)
+df_count = pd.read_excel(<span class="token string">'physical_count.xlsx'</span>)
+
+<span class="token comment"># 2. 数据清洗与关联</span>
+df_merged = pd.merge(df_erp, df_count, on=<span class="token string">'sku_code'</span>, how=<span class="token string">'outer'</span>)
+
+<span class="token comment"># 3. 计算差异 (ERP库存 - 实盘库存)</span>
+df_merged[<span class="token string">'diff'</span>] = df_merged[<span class="token string">'sys_qty'</span>] - df_merged[<span class="token string">'real_qty'</span>]
+
+<span class="token comment"># 4. 导出异常项</span>
+diff_report = df_merged[df_merged[<span class="token string">'diff'</span>] != <span class="token number">0</span>]
+diff_report.to_excel(<span class="token string">'今日差异报表.xlsx'</span>)</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 项目 B：数字化看板概念 (Blender) -->
+                            <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                                <div class="bg-slate-50 px-4 py-3 border-b border-slate-200 flex justify-between items-center">
+                                    <h4 class="font-bold text-slate-700 text-sm">
+                                        <i class="fas fa-cube text-purple-500 mr-1"></i> 3D 可视化仓库概念 (数字孪生探索)
+                                    </h4>
+                                    <span class="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded">Blender / Visualization</span>
+                                </div>
+                                <div class="p-4 flex flex-col md:flex-row gap-6 items-center">
+                                    <div class="w-full md:w-1/3 bg-slate-900 h-32 rounded-lg flex items-center justify-center text-slate-500 relative overflow-hidden group">
+                                        <!-- 模拟 3D 渲染图占位 -->
+                                        <div class="absolute inset-0 bg-gradient-to-r from-purple-900 to-indigo-900 opacity-50"></div>
+                                        <i class="fas fa-cubes text-4xl text-white/20 group-hover:scale-110 transition duration-500"></i>
+                                        <span class="absolute bottom-2 right-2 text-xs text-white/60">Blender Render Preview</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm text-slate-600">
+                                            基于对仓库布局的理解，我正在自学使用 <strong>Blender</strong> 建立仓库的三维模型。
+                                            未来目标是结合 IoT 数据，实现仓库的“数字孪生”监控，直观展示货位热力图与AGV动线。
+                                            <br><span class="text-xs text-slate-400 mt-2 block">(这展示了我不仅仅局限于平面数据，具备空间思维与跨界学习能力)</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 4. 工作经历时间轴 -->
+                    <section class="animate-[fadeInUp_0.8s_ease-out_0.5s_both]">
+                        <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2 border-l-4 border-indigo-500 pl-3">
+                            职业轨迹
+                        </h3>
+                        <div class="relative border-l-2 border-slate-200 ml-3 space-y-8">
+                            <!-- Job 1 -->
+                            <div class="relative pl-8">
+                                <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-blue-600 ring-4 ring-white"></span>
+                                <div class="bg-white p-5 rounded-xl border border-slate-100 shadow-sm">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <div>
+                                            <h4 class="font-bold text-slate-800 text-lg">库存管理员</h4>
+                                            <p class="text-slate-600 font-medium">中国石油 | 苏州</p>
+                                        </div>
+                                        <span class="text-xs bg-slate-100 text-slate-500 px-2 py-1 rounded">2025.10 - 至今</span>
+                                    </div>
+                                    <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                        <li>负责物资台账与ERP系统统筹，管理SKU数量超过 500+。</li>
+                                        <li>执行严格的盘点流程，成功将库存差异率控制在 <strong class="text-blue-600">0.1%</strong> 以下。</li>
+                                        <li>执行HSE标准化流程，负责危化品接卸质检，保持零事故记录。</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Job 2 -->
+                            <div class="relative pl-8">
+                                <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-indigo-400 ring-4 ring-white"></span>
+                                <div class="bg-white p-5 rounded-xl border border-slate-100 shadow-sm opacity-90">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <div>
+                                            <h4 class="font-bold text-slate-800 text-lg">数据验证员 (Validator)</h4>
+                                            <p class="text-slate-600 font-medium">Concentrix (微软项目) | 实习</p>
+                                        </div>
+                                        <span class="text-xs bg-slate-100 text-slate-500 px-2 py-1 rounded">2024.06 - 2024.12</span>
+                                    </div>
+                                    <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                                        <li>使用 CRM 系统对高敏感数据进行逻辑校验与清洗。</li>
+                                        <li>执行 Double-check 机制，大幅提升团队数据录入准确性。</li>
+                                        <li>积累了处理大规模结构化数据的经验。</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </main>
+        
+        <!-- 底部 -->
+        <footer class="bg-white border-t border-slate-200 mt-12 py-8">
+            <div class="max-w-6xl mx-auto px-4 text-center text-slate-500 text-sm">
+                <p>&copy; 2026 马磊职业看板. All Rights Reserved.</p>
+                <p class="mt-2 text-xs">Powered by Gemini 2.0 Flash & Tailwind CSS</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ==================== 脚本逻辑区 ==================== -->
+    <script>
+        // ================= 配置区 (USER CONFIG) =================
+        // 请在此处填入你的 API KEY
+        const key_part_1 = "AIzaSy"; 
+        const key_part_2 = "Cz3fofn_UxTGxbf2UqUsfo-T2vpw3m5Gg"; 
+        const API_KEY = key_part_1 + key_part_2;
+
+        const PAGE_PASSWORD = "321"; // 页面访问密码
+        
+        // 简历上下文数据 (用于 AI Prompt)
+        const RESUME_CONTEXT = `
+            姓名：马磊
+            目标岗位：WMS数据专员 / 供应链数据分析
+            学历：苏州经贸职业技术学院 (大专)
+            核心技能：
+            1. 数据处理：Python (Pandas清洗), Excel (Vlookup/Pivot), SQL (学习中)
+            2. 系统操作：ERP, WMS, PDA, Power BI
+            3. 软技能：沟通协作，英语基础，抗压能力
+            4. 差异化技能：Blender 3D建模 (数字孪生概念)
+            工作经历：
+            - 中石油：库存管理，差异率<0.1%，危化品安全管理。
+            - Concentrix：微软项目数据清洗，CRM操作。
+            - 佳世达：仓库SOP执行，电子元器件收发。
+            亮点：能写代码优化传统流程，具备一线作业经验的复合型人才。
+        `;
+
+        // ========================================================
+
+        // 1. 密码与动画控制
+        const passwordInput = document.getElementById('password-input');
+        
+        // 检查是否已经登录过 (Session Storage)
+        if (sessionStorage.getItem('unlocked') === 'true') {
+            document.getElementById('login-overlay').style.display = 'none';
+            document.getElementById('main-scroll').classList.remove('blur-content');
+            document.body.classList.remove('overflow-hidden');
+            setTimeout(initCharts, 300);
+        }
+
+        function checkPassword() {
+            const input = passwordInput.value;
+            const errorMsg = document.getElementById('error-msg');
+            const overlay = document.getElementById('login-overlay');
+            const mainContent = document.getElementById('main-scroll');
+            const body = document.body;
+
+            if (input === PAGE_PASSWORD) {
+                // 登录成功
+                sessionStorage.setItem('unlocked', 'true');
+                overlay.style.opacity = '0';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    mainContent.classList.remove('blur-content');
+                    body.classList.remove('overflow-hidden');
+                    initCharts(); // 初始化图表
+                }, 500);
+            } else {
+                // 登录失败
+                errorMsg.style.opacity = '1';
+                passwordInput.classList.add('border-red-500', 'ring-red-200');
+                setTimeout(() => {
+                    passwordInput.classList.remove('border-red-500', 'ring-red-200');
+                }, 1000);
+            }
+        }
+
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        // 2. 初始化图表 (Chart.js)
+        function initCharts() {
+            const ctx = document.getElementById('skillChart').getContext('2d');
+            
+            // 更加现代化的雷达图配置
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['WMS系统操作', 'Excel/数据清洗', 'Python编程', '业务流程(SOP)', '跨部门沟通', '英语/文档'],
+                    datasets: [{
+                        label: '能力维度',
+                        data: [90, 85, 55, 80, 75, 60],
+                        backgroundColor: 'rgba(37, 99, 235, 0.2)', // blue-600
+                        borderColor: 'rgba(37, 99, 235, 0.8)',
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: 'rgba(37, 99, 235, 1)',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(37, 99, 235, 1)',
+                        borderWidth: 2,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#e2e8f0' },
+                            grid: { color: '#e2e8f0' },
+                            pointLabels: {
+                                font: { size: 11, family: 'sans-serif' },
+                                color: '#64748b'
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                            ticks: { display: false } // 隐藏刻度数字，更简洁
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        // 3. AI 调用逻辑 (Interactive)
+        async function callAI() {
+            const btn = document.getElementById('ai-btn');
+            const box = document.getElementById('ai-response-box');
+            const select = document.getElementById('ai-question');
+            
+            const questionType = select.value;
+            let userPrompt = "";
+
+            // 根据下拉菜单构建 Prompt
+            switch(questionType) {
+                case 'intro':
+                    userPrompt = "请以第三人称，用专业、自信的口吻，生成一段约100字的自我介绍，重点突出数据技能与供应链经验的结合。";
+                    break;
+                case 'data_value':
+                    userPrompt = "请具体分析马磊的简历，说明他的数据分析技能（Python/Excel）能具体为仓库管理带来哪些降本增效的价值？请列出3点。";
+                    break;
+                case 'python_use':
+                    userPrompt = "请基于简历中提到的'自动化脚本'，模拟一个具体的应用场景，解释他是如何用Python优化重复性工作的。";
+                    break;
+                case 'why_hire':
+                    userPrompt = "请扮演一位资深猎头，向用人经理推荐马磊。请给出3个必须录用他的理由，强调他的复合型人才属性（懂业务+懂技术）。";
+                    break;
+            }
+
+            // 组合最终 Prompt
+            const finalPrompt = `
+                ${RESUME_CONTEXT}
+                
+                任务：${userPrompt}
+                要求：回答简洁有力，使用Markdown格式，适合商务阅读。
+            `;
+
+            // UI 状态更新
+            btn.disabled = true;
+            const originalBtnContent = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> AI 正在思考中...';
+            box.innerHTML = '<div class="flex items-center justify-center h-full"><span class="text-indigo-500 animate-pulse">正在分析简历数据...</span></div>';
+
+            try {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: finalPrompt }] }] })
+                });
+
+                const data = await response.json();
+                
+                if (data.error) throw new Error(data.error.message);
+
+                const text = data.candidates[0].content.parts[0].text;
+                
+                // 打字机效果呈现
+                box.innerHTML = '';
+                const parsedHTML = marked.parse(text);
+                typeWriterEffect(box, parsedHTML);
+
+            } catch (error) {
+                console.error(error);
+                box.innerHTML = `<span class='text-red-500 text-xs'>API请求失败: ${error.message}</span>`;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalBtnContent;
+            }
+        }
+
+        // 简单的打字机效果模拟 (HTML插入)
+        function typeWriterEffect(element, htmlContent) {
+            element.innerHTML = htmlContent;
+            // 简单的淡入效果替代复杂的逐字打印，防止 HTML 标签破坏
+            element.style.opacity = 0;
+            let op = 0.1;
+            let timer = setInterval(function () {
+                if (op >= 1){
+                    clearInterval(timer);
+                }
+                element.style.opacity = op;
+                element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+                op += op * 0.1;
+            }, 10);
+        }
+
+    </script>
+</body>
+</html>
